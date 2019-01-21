@@ -1,3 +1,12 @@
+<!-- 
+/**
+ * @author 	Leandro Silva
+ * @date 	21.01.2019
+ * @version	1.0
+ * 
+ * This is a section with a form, to book a car
+ */
+ -->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,79 +16,22 @@
 	<title>Rent car</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../js/script.js"></script>
-	<script type="text/javascript">
-	function getCarById(callback){
-		var id = $("#carId").val();
-	    $.ajax({
-	        type: "GET",
-	        url: "http://localhost:8080/cars/" + id,
-	        timeout: 600000,
-	        success: callback,
-	        error: function (e) {
-	            console.log("ERROR : ", e);
-	        }
-	    });
-	}
-	function rentCar(){
-	    var carId =  $("#carId").val();
-	    var userId= $("#userId").val();
-	    var startdate=  $("#startDate").val();
-	    var enddate= $("#endDate").val();
-
-	    $.ajax({
-	        type: "POST",
-	        url: "http://localhost:8080/rent/"+ carId + 
-	        "?userId=" + userId + "&startdate=" + startdate +
-	        "&enddate=" + enddate,
-	        timeout: 600000,
-	        success: function (data) {
-	        	document.getElementById("formerror").style.display = "none";
-	        	$("#formerror").text("");
-	            console.log("SUCCESS : ", data);
-	            openSuccessMsg();
-	        },
-	        error: function (e) {
-	            console.log("ERROR : ", e);
-	            console.log("Status : ", e.status);
-	            if(e.status == "404"){
-	            	document.getElementById("formerror").style.display = "none";
-	            	console.log("ERREICHT : ", e.status);
-	            	goToOverview();
-	            }
-	            if(e.status == "405"){
-	            	console.log("ERREICHT : ", e.status);
-	            	$("#formerror").text("Bitte geben Sie korrekte Daten ein.");
-	            	document.getElementById("formerror").style.display = "block";
-	            }
-	            if(e.status == "406"){
-	            	console.log("ERREICHT : ", e.status);
-	            	$("#formerror").text("Das Auto ist für diesen Zeitpunkt bereits reserviert.");
-	            	document.getElementById("formerror").style.display = "block";
-	            }
-	            if(e.status == "407"){
-	            	console.log("ERREICHT : ", e.status);
-	            	$("#formerror").text("Sie haben nicht genügend Guthaben.");
-	            	document.getElementById("formerror").style.display = "block";
-	            }
-	            if(e.status == "0"){
-	            	console.log("ERREICHT : ", e.status);
-	            	$("#formerror").text("Ein Fehler ist aufgetreten. Bitte versuchen Sie es nochmal.");
-	            	document.getElementById("formerror").style.display = "block";
-	            }
-	        }
-	    });
-	}
-	</script>
 </head>
 <body>
+	<!-- Load data section -->
 	<script type="text/javascript">
 		getCarById(initializeForm);
 	</script>
+	<!-- END Load data section -->
 	
+	<!-- Content -->
 	<div class="formbody">
+	
+		<!-- Car image -->
 		<div id="picture" class="picture">
-			
 		</div>
+		
+		<!-- Car details -->
 		<div class="cardetails">
 			<h2 class="detailstitle">Details</h2>
 			<table class="carInfoTable">
@@ -105,6 +57,9 @@
 				</tr>
 			</table>
 		</div>
+		<!-- END Car details -->
+		
+		<!-- Book car form -->
 		<div class="rentform">
 			<table>
 				<tr>
@@ -122,15 +77,20 @@
 				</tr>
 			</table>
 		</div>
-		<div id="formerror" class="errormsg">
+		<!-- END Book car form -->
 		
+		<!-- Messages section -->
+		<div id="formerror" class="errormsg">
 		</div>
 		<div id="successmsg" class="loginDialog">
 			<h1 class="successtitle">Mietantrag erfolgreich</h1>
 			<p class="infotext">Der Mietantrag wurde erfolgreich erstellt. Sie werden von uns für das weitere Vorgehen per SMS kontaktiert.</p>
 			<button class="acceptBtn" onclick="goToOverview()">OK</button>
 		</div>
+		<!-- END Messages section -->
+		
 	</div>
+	<!-- END content -->
 
 </body>
 </html>
