@@ -61,21 +61,31 @@
 		
 		<!-- Book car form -->
 		<div class="rentform">
-			<table>
+			<form id="bookCarForm" onsubmit="rentCar(); return false;">
+				<table>
 				<tr>
 					<td colspan="2">Zeitpunkt festlegen</td>
 					<td colspan="2"></td>
 				</tr>
 				<tr>
 					<td>Von: </td>
-					<td> <input id="startDate" class="dateinput" type="text"/> </td>
+					<td> 
+						<input id="startDate" class="dateinput" type="text" 
+						pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" 
+						title="dd.MM.yyyy" placeholder="dd.MM.yyyy" required/> 
+					</td>
 					<td>Bis: </td>
-					<td> <input id="endDate" class="dateinput" type="text"/> </td>
+					<td> 
+						<input id="endDate" class="dateinput" type="text"
+						pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" 
+						title="dd.MM.yyyy" placeholder="dd.MM.yyyy" required/>
+					</td>
 				</tr>
 				<tr>
-					<td colspan="4"><button class="rentbutton" onclick="rentCar()">Mieten</button></td>
+					<td colspan="4"><input type="submit" class="rentbutton" value="Mieten"/></td>
 				</tr>
 			</table>
+			</form>
 		</div>
 		<!-- END Book car form -->
 		

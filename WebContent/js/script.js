@@ -36,6 +36,10 @@ function closeLogin(){
 	document.getElementById("username").value = "";
 	document.getElementById("pw").value = "";
 	document.getElementById("errorLogin").innerHTML = "";
+	if($("#bookCar").val() == "yes" && $("#userId").val() != ""){
+		$("#bookCar").val("");
+		goToForm();
+	}
 }
 
 /* Store credentials in page */
@@ -76,6 +80,7 @@ function login(){
 
 /* Redirect to form page */
 function goToForm(){
+	$("#bookCar").val("yes");
 	var userId = $("#userId").val();
 	var carId = $("#carId").val();
 	var username = $("#usernameId").val();
@@ -114,6 +119,7 @@ function redirectToOtherPage(username,userId,carId,page){
 /* Open detail dialog */
 function showDetails(apiResponse) {
 	var data = apiResponse;
+	var focusedCarId = "item" + data.id;
 	document.getElementById("detailWindow").style.display = "block";
 	document.getElementById("list").style.width = "75%";
 	document.getElementById("detailName").innerHTML = "" + data.name;
@@ -125,7 +131,10 @@ function showDetails(apiResponse) {
 	for (var i = 0; i < elements.length; i++) {
 		elements[i].style["margin-left"] = "70px";
 		elements[i].style["margin-right"] = "50px";
+		elements[i].style["background-color"] = "#58bef5";
 	}
+	$("#focusedCar").val(focusedCarId);
+	document.getElementById(focusedCarId).style.background = "#58feff";
 }
 
 /* Close detail dialog */
@@ -173,6 +182,7 @@ function createCarList(apiresponse){
 		var divitem = document.createElement("div");
 		divitem.className = "item";
 		var carId = data[i].id;
+		divitem.id = "item" + carId;
 		//https://stackoverflow.com/questions/30476721/passing-parameter-onclick-in-a-loop
 		divitem.onclick = (function (carId, showDetails) {
 			return function(){
@@ -266,12 +276,12 @@ function rentCar(){
             }
             if(e.status == "406"){
             	console.log("ERREICHT : ", e.status);
-            	$("#formerror").text("Das Auto ist für diesen Zeitpunkt bereits reserviert.");
+            	$("#formerror").text("Das Auto ist an diesem Zeitpunkt bereits reserviert.");
             	document.getElementById("formerror").style.display = "block";
             }
             if(e.status == "407"){
             	console.log("ERREICHT : ", e.status);
-            	$("#formerror").text("Sie haben nicht genügend Guthaben.");
+            	$("#formerror").text("Ihr Guthaben reicht nicht aus. Kontaktieren Sie ihre Bank.");
             	document.getElementById("formerror").style.display = "block";
             }
             if(e.status == "0"){
