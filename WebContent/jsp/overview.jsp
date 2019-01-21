@@ -23,6 +23,7 @@
 	
 		<!-- Car list section -->
 		<div id="list">
+			<input type="hidden" id="focusedCar" />
 			<script type="text/javascript">
 				getCars(createCarList);
 			</script>
@@ -55,6 +56,7 @@
 				</tr>
 			</table>
 			<button id="detailBtn" class="rentCarBtn" onclick="goToForm()">Zeitpunkt definieren</button>
+			<input type="hidden" id="bookCar"/>
 		</div>
 		<!-- END Car details section -->
 		
