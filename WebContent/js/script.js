@@ -279,12 +279,12 @@ function rentCar(){
             	$("#formerror").text("Das Auto ist an diesem Zeitpunkt bereits reserviert.");
             	document.getElementById("formerror").style.display = "block";
             }
-            if(e.status == "407"){
+            if(e.status == "0"){
             	console.log("ERREICHT : ", e.status);
             	$("#formerror").text("Ihr Guthaben reicht nicht aus. Kontaktieren Sie ihre Bank.");
             	document.getElementById("formerror").style.display = "block";
             }
-            if(e.status == "0"){
+            if(e.status == "500"){
             	console.log("ERREICHT : ", e.status);
             	$("#formerror").text("Ein Fehler ist aufgetreten. Bitte versuchen Sie es nochmal.");
             	document.getElementById("formerror").style.display = "block";
